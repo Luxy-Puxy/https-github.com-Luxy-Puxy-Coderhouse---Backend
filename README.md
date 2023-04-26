@@ -1,4 +1,4 @@
-#Product Manager
+### Product Manager
 This is a Node.js module for managing a list of products. It provides the following functionalities:
 
 -Adding a product
