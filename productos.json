@@ -1,0 +1,92 @@
+[
+    {
+      "id": 1,
+      "title": "Catan",
+      "description": "Un juego de mesa de estrategia en el que los jugadores compiten para construir y colonizar una isla.",
+      "price": 39.99,
+      "thumbnail": "https://cdn.pixabay.com/photo/2021/05/01/09/19/catana-board-game-6222567_1280.jpg",
+      "code": "CTN001",
+      "stock": 10
+    },
+    {
+      "id": 2,
+      "title": "Scythe",
+      "description": "Un juego de mesa de estrategia y combate en el que los jugadores compiten para controlar un mundo alternativo.",
+      "price": 59.99,
+      "thumbnail": "https://cdn.pixabay.com/photo/2020/06/05/13/33/scythe-board-game-5264563_1280.jpg",
+      "code": "SCY002",
+      "stock": 8
+    },
+    {
+      "id": 3,
+      "title": "Ticket to Ride",
+      "description": "Un juego de mesa de estrategia en el que los jugadores compiten para construir y conectar rutas ferroviarias en todo el mundo.",
+      "price": 29.99,
+      "thumbnail": "https://cdn.pixabay.com/photo/2020/06/05/13/32/ticket-to-ride-5264559_1280.jpg",
+      "code": "TTR003",
+      "stock": 12
+    },
+    {
+      "id": 4,
+      "title": "Pandemic",
+      "description": "Un juego de mesa cooperativo en el que los jugadores deben trabajar juntos para detener la propagación de una pandemia mundial.",
+      "price": 34.99,
+      "thumbnail": "https://cdn.pixabay.com/photo/2020/06/05/13/33/pandemic-board-game-5264562_1280.jpg",
+      "code": "PAN004",
+      "stock": 6
+    },
+    {
+      "id": 5,
+      "title": "Azul",
+      "description": "Un juego de mesa de estrategia en el que los jugadores compiten para crear los patrones de azulejos más impresionantes en la pared del palacio real de Évora.",
+      "price": 39.99,
+      "thumbnail": "https://cdn.pixabay.com/photo/2020/06/05/13/33/azul-board-game-5264564_1280.jpg",
+      "code": "AZL005",
+      "stock": 15
+    },
+    {
+      "id": 6,
+      "title": "Kingdomino",
+      "description": "Un juego de mesa de estrategia en el que los jugadores compiten para construir el reino más impresionante al combinar los dominós de territorio.",
+      "price": 24.99,
+      "thumbnail": "https://cdn.pixabay.com/photo/2020/06/05/13/32/kingdomino-5264557_1280.jpg",
+      "code": "KNG006",
+      "stock": 20
+    },
+    {
+        "id": 7,
+        "title": "Gloomhaven",
+        "description": "Un juego de mesa de estrategia en el que los jugadores trabajan juntos para explorar mazmorras, luchar contra monstruos y completar misiones.",
+        "price": 99.99,
+        "thumbnail": "https://cdn.pixabay.com/photo/2021/07/15/12/10/gloomhaven-6466486_1280.jpg",
+        "code": "GLH007",
+        "stock": 5
+    },
+    {
+        "id": 8,
+        "title": "Terraforming Mars",
+        "description": "Un juego de mesa de estrategia en el que los jugadores compiten para terraformar y colonizar el planeta rojo.",
+        "price": 49.99,
+        "thumbnail": "https://cdn.pixabay.com/photo/2021/05/01/09/18/terraforming-mars-6222564_1280.jpg",
+        "code": "TRF008",
+        "stock": 7
+    },
+    {
+        "id": 9,
+        "title": "Wingspan",
+        "description": "Un juego de mesa de estrategia en el que los jugadores coleccionan aves y crean hábitats para ellas.",
+        "price": 44.99,
+        "thumbnail": "https://cdn.pixabay.com/photo/2020/06/05/13/33/wingspan-board-game-5264565_1280.jpg",
+        "code": "WSP009",
+        "stock": 9
+    },
+    {
+        "id": 10,
+        "title": "Dominion",
+        "description": "Un juego de mesa de estrategia en el que los jugadores compiten para construir el mejor reino y acumular la mayor cantidad de puntos de victoria.",
+        "price": 29.99,
+        "thumbnail": "https://cdn.pixabay.com/photo/2020/06/05/13/32/dominion-5264558_1280.jpg",
+        "code": "DMN010",
+        "stock": 11
+    }
+]    
