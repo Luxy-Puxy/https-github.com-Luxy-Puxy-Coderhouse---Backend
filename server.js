@@ -1,93 +1,99 @@
 const express = require('express');
-const app = express();
 const ProductManager = require('./ProductManager');
 const CartManager = require('./CartManager');
+
+
+const app = express();
+const port = 8080;
+
 const productManager = new ProductManager('./productos.json');
 const cartManager = new CartManager('./carritos.json');
 
-app.get('/api/products', async (req, res) => {
+app.get('/api/products', (req, res) => {
   try {
-    const products = await productManager.getProducts();
+    const products = productManager.getProducts();
     const limit = req.query.limit;
     if (limit) {
-      res.send(products.slice(0, limit));
+      const limitedProducts = products.slice(0, parseInt(limit));
+      res.json({
+        success: true,
+        response: limitedProducts
+      });
     } else {
-      res.send(products);
+      res.json({
+        success: true,
+        response: products
+      });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).send('Error al obtener los productos');
+    res.json({
+      success: false,
+      response: error.message
+    });
   }
 });
 
-app.get('/api/products/:pid', async (req, res) => {
+app.get('/api/products/:pid', (req, res) => {
   try {
     const productId = parseInt(req.params.pid);
-    const product = await productManager.getProductById(productId);
+    const product = productManager.getProductById(productId);
     if (product) {
-      res.send(product);
+      res.json({
+        success: true,
+        response: product
+      });
     } else {
-      res.status(404).send('Producto no encontrado :(');
+      res.json({
+        success: false,
+        response: {}
+      });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).send('Error al obtener el producto');
+    res.json({
+      success: false,
+      response: error.message
+    });
   }
 });
 
-app.post('/api/cart/products/:pid', async (req, res) => {
+app.get('/api/carts', (req, res) => {
   try {
-    const productId = parseInt(req.params.pid);
-    const product = await productManager.getProductById(productId);
-    if (product) {
-      const cartId = await cartManager.addCart();
-      const success = await cartManager.addProduct(cartId, product);
-      if (success) {
-        res.send(await cartManager.getCartById(cartId));
-      } else {
-        res.status(500).send('Error al agregar el producto al carrito');
-      }
+    const carts = cartManager.getCarts();
+    res.json({
+      success: true,
+      response: carts
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      response: error.message
+    });
+  }
+});
+
+app.get('/api/carts/:cid', (req, res) => {
+  try {
+    const cartId = parseInt(req.params.cid);
+    const cart = cartManager.getCartById(cartId);
+    if (cart) {
+      res.json({
+        success: true,
+        response: cart
+      });
     } else {
-      res.status(404).send('Producto no encontrado :(');
+      res.json({
+        success: false,
+        response: {}
+      });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).send('Error al agregar el producto al carrito');
+    res.json({
+      success: false,
+      response: error.message
+    });
   }
 });
 
-app.delete('/api/cart/products/:pid', async (req, res) => {
-  try {
-    const productId = parseInt(req.params.pid);
-    const product = await productManager.getProductById(productId);
-    if (product) {
-      const success = await cartManager.removeProduct(product);
-      if (success) {
-        res.send(await cartManager.getCart());
-      } else {
-        res.status(500).send('Error al eliminar el producto del carrito');
-      }
-    } else {
-      res.status(404).send('Producto no encontrado :(');
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Error al eliminar el producto del carrito');
-  }
+app.listen(port, () => {
+  console.log(`Servidor puerto: ${port}`);
 });
-
-app.get('/api/cart', async (req, res) => {
-  try {
-    const cart = await cartManager.getCart();
-    res.send(cart);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Error al obtener el carrito');
-  }
-});
-
-app.listen(8080, () => {
-  console.log('Servidor esta escuchando musica en puerto el 8080 :D');
-});
-
-
