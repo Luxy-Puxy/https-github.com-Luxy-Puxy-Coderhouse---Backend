@@ -96,6 +96,7 @@ class CartManager {
     }
   }
   
+  
   deleteCart(cid, pid, units) {
     const cart = this.carts.find((c) => c.id === cid);
     const product = this.products.find((p) => p.id === pid);

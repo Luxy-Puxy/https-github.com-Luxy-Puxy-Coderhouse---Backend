@@ -10,6 +10,7 @@ const cartManager = new CartManager('./carritos.json', './productos.json');
 
 
 
+
 // Middleware para manejar errores
 const errorHandler = (err, req, res, next) => {
   res.status(err.status || 500).json({
@@ -17,6 +18,9 @@ const errorHandler = (err, req, res, next) => {
     response: err.response || 'Ocurrió un error inesperado'
   });
 };
+
+app.use(errorHandler);
+
 
 // Rutas para manejar productos
 app.get('/api/products', (req, res, next) => {
@@ -60,21 +64,21 @@ app.get('/api/products/:pid', (req, res, next) => {
   }
 });
 
-app.post('/api/products', (req, res, next) => {
+app.post('/api/products', (req, res) => {
   try {
-    const product = req.body;
-    const newProduct = productManager.addProduct(product);
-    if (!newProduct) {
-      throw new Error('El código del producto ya está en uso');
-    }
+const newProduct = productManager.addProduct(req.body);
     res.status(201).json({
-      success: true,
+      status: 'success',
       response: newProduct
     });
   } catch (error) {
-    next({ status: 400, response: error.message });
+    res.status(500).json({
+      status: 'error',
+      response: error.message
+    });
   }
 });
+
 
 
 app.put('/api/products/:pid', (req, res, next) => {
@@ -132,6 +136,7 @@ app.put('/api/carts/:cid/product/:pid/:units', (req, res) => {
 });
 
 
+
 app.delete('/api/carts/:cid/product/:pid/:units', (req, res) => {
   const cid = parseInt(req.params.cid);
   const pid = parseInt(req.params.pid);
@@ -145,6 +150,27 @@ app.delete('/api/carts/:cid/product/:pid/:units', (req, res) => {
     res.status(400).send('Cantidad de unidades inválida');
   } else {
     res.send(result);
+  }
+});
+
+app.get('/api/carts', (req, res) => {
+  const carts = cartManager.getCarts();
+  if (carts === 'Not found') {
+    res.status(404).send('No se encontraron carritos');
+  } else if (carts === 'getCarts: error') {
+    res.status(500).send('Error al leer el archivo de carritos');
+  } else {
+    res.send(carts);
+  }
+});
+
+app.get('/api/carts/:cid', (req, res) => {
+  const cid = parseInt(req.params.cid);
+  const cart = cartManager.getCartById(cid);
+  if (cart === 'Not found') {
+    res.status(404).send('Carrito no encontrado');
+  } else {
+    res.send(cart);
   }
 });
 

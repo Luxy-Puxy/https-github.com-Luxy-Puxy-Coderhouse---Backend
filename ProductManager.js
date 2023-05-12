@@ -19,7 +19,6 @@ class ProductManager {
   addProduct(product) {
     const { title, description, price, thumbnail, code, stock } = product;
     
-    
     const maxId = this.products.reduce((prev, curr) => prev.id > curr.id ? prev : curr).id;
     const newProduct = {
       id: maxId + 1, 
@@ -96,8 +95,6 @@ class ProductManager {
 }
 
 module.exports = ProductManager;
-
-
 
 
 
