@@ -3,18 +3,25 @@ const fs = require('fs');
 class ProductManager {
   constructor(path) {
     this.path = path;
+    this.products = [];
+    this.init();
+  }
+
+  init() {
     try {
       const data = fs.readFileSync(this.path, 'utf-8');
       this.products = JSON.parse(data);
     } catch (error) {
-      this.products = [];
+      console.log('Error al leer el archivo', error);
     }
   }
 
   addProduct(product) {
     const { title, description, price, thumbnail, code, stock } = product;
+    
+    const maxId = this.products.reduce((prev, curr) => prev.id > curr.id ? prev : curr).id;
     const newProduct = {
-      id: this.products.length + 1,
+      id: maxId + 1, 
       title,
       description,
       price,
@@ -22,14 +29,13 @@ class ProductManager {
       code,
       stock,
     };
-
-    // Check if product code already exists
+  
     const existingProduct = this.products.find(p => p.code === code);
     if (existingProduct) {
       console.log('El código del producto ya está en uso');
       return;
     }
-
+  
     if (!Object.values(newProduct).includes(undefined)) {
       this.products.push(newProduct);
       fs.writeFileSync(this.path, JSON.stringify(this.products));
@@ -38,6 +44,7 @@ class ProductManager {
       console.log("Todos los campos son obligatorios");
     }
   }
+  
 
   getProducts() {
     try {
@@ -61,15 +68,19 @@ class ProductManager {
     const productIndex = this.products.findIndex((p) => p.id === id);
     if (productIndex !== -1) {
       this.products[productIndex] = {
+        ...this.products[productIndex],
         ...updatedProduct,
         id: id,
       };
       fs.writeFileSync(this.path, JSON.stringify(this.products));
       console.log('Producto actualizado');
+      return this.products[productIndex]; 
     } else {
       console.log('Producto no encontrado');
+      return false; 
     }
   }
+  
 
   deleteProduct(id) {
     const productIndex = this.products.findIndex((p) => p.id === id);
@@ -83,6 +94,7 @@ class ProductManager {
   }
 }
 
+module.exports = ProductManager;
 
 
 
@@ -90,30 +102,30 @@ class ProductManager {
 // const productos = new ProductManager('productos.json');
 
 // // getProducts
-// console.log(productos.getProducts()); // []
+// // console.log(productos.getProducts()); // []
 
-// // addProduct
+// //addProduct
 // productos.addProduct({
-//   title: 'producto prueba',
+//   title: 'producto pruebarytjryjrtyjt',
 //   description: 'Este es un producto prueba',
 //   price: 200,
 //   thumbnail: 'Sin imagen',
-//   code: 'abc123',
+//   code: 'abc12treyrty3',
 //   stock: 25
 // });
 
 // console.log(productos.getProducts()); 
 
-// // getProductById
-// console.log(productos.getProductById(1));
-// console.log(productos.getProductById(2)); // "Producto no encontrado"
+// // // getProductById
+// // console.log(productos.getProductById(1));
+// // console.log(productos.getProductById(2)); // "Producto no encontrado"
 
-// //updateProduct
+//updateProduct
 // productos.updateProduct(1, { title: 'producto actualizado', description: 'Este es un producto actualizado', price: 300, thumbnail: 'Sin imagen', code: 'def456', stock: 10, id: 1 });
 // console.log(productos.getProducts()); 
 
-// // deleteProduct
-// productos.deleteProduct(1);
-// console.log(productos.getProducts()); // []
-// console.log(productos.getProductById(1)); // "Producto no encontrado"
-// productos.deleteProduct(1); // "Producto no encontrado"
+// // // deleteProduct
+// // productos.deleteProduct(1);
+// // console.log(productos.getProducts()); // []
+// // console.log(productos.getProductById(1)); // "Producto no encontrado"
+// // productos.deleteProduct(1); // "Producto no encontrado"
