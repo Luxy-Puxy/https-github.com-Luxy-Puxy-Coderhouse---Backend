@@ -1,4 +1,5 @@
-const fs = require('fs');
+import fs from 'fs';
+
 
 class CartManager {
   constructor(cartFile, productsFile) {
@@ -137,7 +138,8 @@ class CartManager {
   
 }
 
-module.exports = CartManager;
+export default CartManager;
+
 
 
 // const cartManager = new CartManager('./carritos.json');

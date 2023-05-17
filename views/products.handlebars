@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Productos</title>
+  <style>
+    .product-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .product-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .product-thumbnail {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Productos</h1>
+  <ul class="product-list">
+    {{#each products}}
+    <li class="product-item">
+      <img class="product-thumbnail" src="{{this.thumbnail}}" alt="Thumbnail">
+      <div>
+        <h3>{{this.title}}</h3>
+        <p>{{this.description}}</p>
+        <p>Precio: {{this.price}}</p>
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+
+  <div>
+    {{#if previousPage}}
+    <a href="/products?page={{previousPage}}">Anterior</a>
+    {{/if}}
+    {{#if nextPage}}
+    <a href="/products?page={{nextPage}}">Siguiente</a>
+    {{/if}}
+  </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nuevo Producto</title>
+</head>
+<body>
+  <h1>Nuevo Producto</h1>
+  <form method="POST" action="/api/products">
+    <div>
+      <label for="title">Nombre del producto:</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+      <label for="description">Descripción del producto:</label>
+      <textarea id="description" name="description" required></textarea>
+    </div>
+    <div>
+      <label for="price">Precio del producto:</label>
+      <input type="number" id="price" name="price" required>
+    </div>
+    <div>
+      <label for="thumbnail">URL de la imagen del producto:</label>
+      <input type="text" id="thumbnail" name="thumbnail" required>
+    </div>
+    <div>
+      <label for="code">Código del producto:</label>
+      <input type="text" id="code" name="code" required>
+    </div>
+    <div>
+      <label for="stock">Cantidad en stock:</label>
+      <input type="number" id="stock" name="stock" required>
+    </div>
+    <button type="submit">Crear producto</button>
+  </form>
+
+  <script>
+    // formulario
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const response = await fetch('/api/products', {
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await response.json();
+      if (data.success) {
+        alert('Producto creado exitosamente');
+        window.location.href = '/products';
+      } else {
+        alert('Error al crear el producto');
+      }
+    });
+  </script>
+</body>
+</html>

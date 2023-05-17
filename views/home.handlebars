@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inicio</title>
+</head>
+<body>
+  <h1>Holi</h1>
+  <p>Inicio.</p>
+
+  <h2>NavBar</h2>
+  <ul>
+    <li><a href="/products">Productos</a></li>
+    <li><a href="/chatbot">Chat</a></li>
+    <li><a href="/new_product">Agregar Producto</a></li>
+    <li><a href="/carts">Carritos</a></li>
+  </ul>
+
+  <h2>Botón de carrito</h2>
+  <button id="cartButton">Carrito (0)</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+  <script>
+  
+    const socket = io();
+    socket.on('cartUpdated', (cartCount) => {
+      const cartButton = document.getElementById('cartButton');
+      cartButton.innerText = `Carrito (${cartCount})`;
+    });
+  </script>
+</body>
+</html>

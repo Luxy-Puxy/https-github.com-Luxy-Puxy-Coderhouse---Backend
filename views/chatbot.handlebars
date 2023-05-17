@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat</title>
+  <style>
+    #chatbox {
+      width: 400px;
+      height: 400px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow-y: scroll;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chat</h1>
+  <div id="chatbox"></div>
+  <form id="chat-form">
+    <input type="text" id="message-input" placeholder="Ingrese un mensaje">
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const chatbox = document.getElementById('chatbox');
+    const chatForm = document.getElementById('chat-form');
+    const messageInput = document.getElementById('message-input');
+    const socket = io();
+
+    socket.on('chat-message', (message) => {
+      appendMessage(message);
+    });
+
+    socket.on('chat-history', (messages) => {
+      messages.forEach((message) => {
+        appendMessage(message);
+      });
+    });
+
+    chatForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const message = messageInput.value;
+      if (message.trim() !== '') {
+        socket.emit('chat-message', message);
+        messageInput.value = '';
+      }
+    });
+
+    function appendMessage(message) {
+      const messageElement = document.createElement('div');
+      messageElement.innerText = message;
+      chatbox.appendChild(messageElement);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<h1>Detalle del producto</h1>
+
+<div>
+  <h2>{{product.name}}</h2>
+  <p>Precio: {{product.price}}</p>
+  <p>Descripción: {{product.description}}</p>
+</div>
+
+<form action="/carts/1/product/{{product.id}}" method="POST">
+  <label for="quantity">Cantidad:</label>
+  <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+
+  <button type="submit">Agregar al carrito</button>
+</form>
