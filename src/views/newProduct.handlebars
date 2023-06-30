@@ -1,0 +1,89 @@
+<main id="main">
+    <div class="header">
+        <h1>New Product</h1>
+        <a href="/" class="link">Home</a>
+    </div>
+    
+    {{#if products}}
+    <div class="forms-container">
+        <form id="form-post" class="form">
+            <h2 class="title">Create Product</h2>
+            <div class="form-row">
+                <div class="input-box">
+                    <label for="title" class="input-label">Title *</label>
+                    <input type="text" class="input" id="title" required>
+                </div>
+                <div class="input-box">
+                    <label for="category" class="input-label">Category *</label>
+                    <input type="text" class="input" id="category" required>
+                </div>
+            </div>
+            <div class="input-box">
+                <label for="description" class="input-label">Description *</label>
+                <textarea class="input textarea" id="description" required></textarea>
+            </div>
+            <div class="form-row">
+                <div class="input-box">
+                    <label for="code" class="input-label">Code *</label>
+                    <input type="text" class="input" id="code" required>
+                </div>
+                <div class="input-box">
+                    <label for="price" class="input-label">Price *</label>
+                    <input type="number" min="0" class="input" id="price" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-box">
+                    <label for="status" class="input-label">Status *</label>
+                    <label for="status-true" class="input-label">
+                        <input type="radio" value="true" name="status" id="status-true" checked>True
+                    </label>
+                    <label for="status-false" class="input-label">
+                        <input type="radio" value="false" name="status" id="status-false">False
+                    </label>
+                </div>
+                <div class="input-box">
+                    <label for="stock" class="input-label">Stock</label>
+                    <input type="number" min="0" class="input" id="stock" placeholder="24">
+                </div>
+            </div>
+            <div class="input-box">
+                <label for="thumbnail" class="input-label">Thumbnail *</label>
+                <input type="text" class="input" id="thumbnail" required>
+            </div>
+            <button type="submit" class="primary-button">Create</button>
+        </form>
+
+        <form id="form-delete" class="form">
+            <h2 class="title">Delete Product</h2>
+            <div class="input-box">
+                <label for="product-id" class="input-label">Product ID</label>
+                <input type="text" class="input" id="product-id" required>
+            </div>
+            <button type="submit" class="primary-button">Delete</button>
+        </form>
+    </div>
+
+    <ul id="products" class="product-list">
+        {{#each products}}
+            <li class="product-card">
+                <img class="product-image" src="{{this.thumbnails}}"/>
+                <span class="product-id">{{this.id}}</span>
+                <div class="product-details">
+                    <h3 class="product-title">{{this.title}}</h3>
+                    <span class="product-category">{{this.category}}</span>
+                    <p class="product-description">{{this.description}}</p>
+                </div>
+                <div class="product-info">
+                    <span class="product-price">${{this.price}}</span>
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+    
+    {{else}}
+    <h1 class="no-products">There are no products</h1>
+    {{/if}}
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realtimeProducts.js"></script>
