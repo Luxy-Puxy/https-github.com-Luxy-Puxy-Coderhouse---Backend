@@ -1,0 +1,64 @@
+<main id="main">
+    <div class="header">
+        <h1>Product Catalog</h1>
+    </div>
+
+    <!-- Search Form -->
+    <form action="/products" method="GET" class="search-form">
+        <input type="text" name="search" placeholder="Search for products..." value="{{searchQuery}}">
+        <button type="submit" class="search-button">Search</button>
+    </form>
+
+    {{#if products}}
+    <ul id="products" class="product-list">
+        {{#each products}}
+        <li class="product-card">
+            <img class="product-image" src="{{this.thumbnails}}" alt="Product Image">
+            <span class="product-id">ID: {{this.id}}</span>
+            <div class="product-info">
+                <h2 class="product-title">{{this.title}}</h2>
+                <span class="product-category">{{this.category}}</span>
+            </div>
+            <div class="product-details">
+                <p class="product-description">{{this.description}}</p>
+                <div class="product-actions">
+                    <button class="add-to-cart-button" id="button-{{this.id}}" value="{{this.id}}" onclick="handleClick(event)">Add to Cart</button>
+                    <span class="product-price">${{this.price}}</span>
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+    <div class="pagination">
+        {{#if hasPrevPage}}
+        <a href="{{prevLink}}" class="pagination-link">Previous Page ({{prevPage}})</a>
+        {{/if}}
+        <span class="current-page">Current Page ({{page}})</span>
+        {{#if hasNextPage}}
+        <a href="{{nextLink}}" class="pagination-link">Next Page ({{nextPage}})</a>
+        {{/if}}
+    </div>
+    {{else}}
+    <h1 class="no-products-message">There are no products</h1>
+    {{/if}}
+</main>
+
+<script>
+    const handleClick = async (event) => {
+        const productId = event.target.value
+        const cartId = "63f2f9fbf702091f5a8adb81"
+
+        try {
+            const response = await fetch(`/api/carts/${cartId}/product/${productId}`, { method: "POST" })
+            const data = await response.json()
+
+            if (data.ok) {
+                alert("Product added to cart.")
+            } else {
+                alert("Please try again later.")
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+</script>

@@ -1,0 +1,24 @@
+<ul>
+    {{#each carts}}
+        <li>
+            <h1>Cart ID: {{this.id}}</h1>
+            <br /><br />
+            <div>
+                <h2>Products:</h2><br />
+                <ul>
+                    {{#each this.products}}
+                        <li>
+                            <h3>Product ID: {{this.id}}</h3>
+                            <p>Product name: {{this.title}}</p>
+                            <p>Product description: {{this.description}}</p>
+                            <br />
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+            <p>Total: {{this.total}}</p>
+        </li>
+    {{else}}
+        <li>No carts found.</li>
+    {{/each}}
+</ul>
